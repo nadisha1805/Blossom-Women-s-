@@ -9,9 +9,15 @@ async function bootstrap() {
     const allowedOrigins = process.env.ALLOWED_ORIGINS
         ? process.env.ALLOWED_ORIGINS.split(',').map((o) => o.trim())
         : ['http://localhost:5173', 'http://localhost:4173', 'http://localhost:3000'];
+    if (process.env.FRONTEND_URL) {
+        allowedOrigins.push(process.env.FRONTEND_URL.trim());
+    }
     app.enableCors({
         origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+            if (!origin ||
+                allowedOrigins.includes(origin) ||
+                origin.endsWith('.vercel.app') ||
+                process.env.NODE_ENV !== 'production') {
                 callback(null, true);
             }
             else {
