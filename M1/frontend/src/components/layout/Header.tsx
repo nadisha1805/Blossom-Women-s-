@@ -93,6 +93,14 @@ export default function Header() {
             {/* CTA Button + Mobile Toggle */}
             <div className="flex items-center gap-3">
               <Link
+                to="/portal/login"
+                id="header-staff-portal-btn"
+                className="hidden md:inline-flex items-center gap-1.5 border border-[#E9DFE3] hover:border-[#70405B] text-[#70405B] text-xs font-sans font-semibold px-3.5 py-2 rounded-xl transition-all duration-200 hover:bg-[#FAF5EF]"
+              >
+                Staff Portal
+              </Link>
+
+              <Link
                 to="/appointment"
                 id="header-appointment-cta"
                 className="hidden sm:inline-flex items-center gap-2 bg-[#70405B] hover:bg-[#442B3B] text-white text-sm font-sans font-medium px-5 py-2.5 rounded-xl transition-all duration-200 shadow-soft hover:shadow-card"

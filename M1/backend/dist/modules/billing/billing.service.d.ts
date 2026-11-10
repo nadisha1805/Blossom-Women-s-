@@ -1,0 +1,305 @@
+import { PrismaService } from '../../prisma/prisma.service.js';
+import { CreateInvoiceDto, RecordPaymentDto } from './dto/billing.dto.js';
+import { InvoiceStatus } from '@prisma/client';
+export declare class BillingService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    generateInvoiceNumber(): string;
+    generateReceiptNumber(): string;
+    createInvoice(dto: CreateInvoiceDto): Promise<{
+        items: {
+            description: string;
+            id: string;
+            createdAt: Date;
+            invoiceId: string;
+            quantity: number;
+            unitPrice: import("@prisma/client/runtime/library").Decimal;
+            totalPrice: import("@prisma/client/runtime/library").Decimal;
+        }[];
+        patient: {
+            email: string | null;
+            id: string;
+            fullName: string;
+            phone: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            dob: Date;
+            gender: string;
+            bloodGroup: string | null;
+            address: string | null;
+            emergencyContactName: string | null;
+            emergencyContactPhone: string | null;
+            allergies: string[];
+            medicalConditions: string[];
+            currentMedications: string[];
+            medicalHistory: string | null;
+            menstrualHistory: string | null;
+            pregnancyHistory: string | null;
+            previousSurgeries: string | null;
+        };
+        payments: {
+            id: string;
+            invoiceId: string;
+            receiptNumber: string;
+            amount: import("@prisma/client/runtime/library").Decimal;
+            paymentMethod: import(".prisma/client").$Enums.PaymentMethod;
+            transactionRef: string | null;
+            receivedBy: string | null;
+            notes: string | null;
+            paidAt: Date;
+        }[];
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        patientId: string;
+        status: import(".prisma/client").$Enums.InvoiceStatus;
+        appointmentId: string | null;
+        invoiceNumber: string;
+        subtotal: import("@prisma/client/runtime/library").Decimal;
+        discount: import("@prisma/client/runtime/library").Decimal;
+        tax: import("@prisma/client/runtime/library").Decimal;
+        total: import("@prisma/client/runtime/library").Decimal;
+        paidAmount: import("@prisma/client/runtime/library").Decimal;
+        balance: import("@prisma/client/runtime/library").Decimal;
+        dueDate: Date | null;
+    }>;
+    recordPayment(dto: RecordPaymentDto, receivedByName?: string): Promise<{
+        payment: {
+            id: string;
+            invoiceId: string;
+            receiptNumber: string;
+            amount: import("@prisma/client/runtime/library").Decimal;
+            paymentMethod: import(".prisma/client").$Enums.PaymentMethod;
+            transactionRef: string | null;
+            receivedBy: string | null;
+            notes: string | null;
+            paidAt: Date;
+        };
+        invoice: {
+            items: {
+                description: string;
+                id: string;
+                createdAt: Date;
+                invoiceId: string;
+                quantity: number;
+                unitPrice: import("@prisma/client/runtime/library").Decimal;
+                totalPrice: import("@prisma/client/runtime/library").Decimal;
+            }[];
+            patient: {
+                email: string | null;
+                id: string;
+                fullName: string;
+                phone: string;
+                createdAt: Date;
+                updatedAt: Date;
+                patientId: string;
+                dob: Date;
+                gender: string;
+                bloodGroup: string | null;
+                address: string | null;
+                emergencyContactName: string | null;
+                emergencyContactPhone: string | null;
+                allergies: string[];
+                medicalConditions: string[];
+                currentMedications: string[];
+                medicalHistory: string | null;
+                menstrualHistory: string | null;
+                pregnancyHistory: string | null;
+                previousSurgeries: string | null;
+            };
+            payments: {
+                id: string;
+                invoiceId: string;
+                receiptNumber: string;
+                amount: import("@prisma/client/runtime/library").Decimal;
+                paymentMethod: import(".prisma/client").$Enums.PaymentMethod;
+                transactionRef: string | null;
+                receivedBy: string | null;
+                notes: string | null;
+                paidAt: Date;
+            }[];
+        } & {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            status: import(".prisma/client").$Enums.InvoiceStatus;
+            appointmentId: string | null;
+            invoiceNumber: string;
+            subtotal: import("@prisma/client/runtime/library").Decimal;
+            discount: import("@prisma/client/runtime/library").Decimal;
+            tax: import("@prisma/client/runtime/library").Decimal;
+            total: import("@prisma/client/runtime/library").Decimal;
+            paidAmount: import("@prisma/client/runtime/library").Decimal;
+            balance: import("@prisma/client/runtime/library").Decimal;
+            dueDate: Date | null;
+        };
+    }>;
+    findAll(query?: {
+        patientId?: string;
+        status?: InvoiceStatus;
+    }): Promise<({
+        items: {
+            description: string;
+            id: string;
+            createdAt: Date;
+            invoiceId: string;
+            quantity: number;
+            unitPrice: import("@prisma/client/runtime/library").Decimal;
+            totalPrice: import("@prisma/client/runtime/library").Decimal;
+        }[];
+        patient: {
+            email: string | null;
+            id: string;
+            fullName: string;
+            phone: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            dob: Date;
+            gender: string;
+            bloodGroup: string | null;
+            address: string | null;
+            emergencyContactName: string | null;
+            emergencyContactPhone: string | null;
+            allergies: string[];
+            medicalConditions: string[];
+            currentMedications: string[];
+            medicalHistory: string | null;
+            menstrualHistory: string | null;
+            pregnancyHistory: string | null;
+            previousSurgeries: string | null;
+        };
+        payments: {
+            id: string;
+            invoiceId: string;
+            receiptNumber: string;
+            amount: import("@prisma/client/runtime/library").Decimal;
+            paymentMethod: import(".prisma/client").$Enums.PaymentMethod;
+            transactionRef: string | null;
+            receivedBy: string | null;
+            notes: string | null;
+            paidAt: Date;
+        }[];
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        patientId: string;
+        status: import(".prisma/client").$Enums.InvoiceStatus;
+        appointmentId: string | null;
+        invoiceNumber: string;
+        subtotal: import("@prisma/client/runtime/library").Decimal;
+        discount: import("@prisma/client/runtime/library").Decimal;
+        tax: import("@prisma/client/runtime/library").Decimal;
+        total: import("@prisma/client/runtime/library").Decimal;
+        paidAmount: import("@prisma/client/runtime/library").Decimal;
+        balance: import("@prisma/client/runtime/library").Decimal;
+        dueDate: Date | null;
+    })[]>;
+    findOne(id: string): Promise<{
+        items: {
+            description: string;
+            id: string;
+            createdAt: Date;
+            invoiceId: string;
+            quantity: number;
+            unitPrice: import("@prisma/client/runtime/library").Decimal;
+            totalPrice: import("@prisma/client/runtime/library").Decimal;
+        }[];
+        patient: {
+            email: string | null;
+            id: string;
+            fullName: string;
+            phone: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            dob: Date;
+            gender: string;
+            bloodGroup: string | null;
+            address: string | null;
+            emergencyContactName: string | null;
+            emergencyContactPhone: string | null;
+            allergies: string[];
+            medicalConditions: string[];
+            currentMedications: string[];
+            medicalHistory: string | null;
+            menstrualHistory: string | null;
+            pregnancyHistory: string | null;
+            previousSurgeries: string | null;
+        };
+        appointment: ({
+            doctor: {
+                id: string;
+                isActive: boolean;
+                createdAt: Date;
+                updatedAt: Date;
+                name: string;
+                slug: string;
+                qualification: string;
+                specialty: string;
+                experienceYears: number | null;
+                biography: string;
+                areasOfExpertise: string[];
+                profileImage: string | null;
+            };
+            service: {
+                description: string;
+                id: string;
+                isActive: boolean;
+                createdAt: Date;
+                updatedAt: Date;
+                name: string;
+                slug: string;
+                benefits: string | null;
+                whatToExpect: string | null;
+                category: string | null;
+                standardFee: import("@prisma/client/runtime/library").Decimal;
+            };
+        } & {
+            type: string;
+            id: string;
+            doctorId: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            serviceId: string;
+            scheduledDate: Date;
+            scheduledTimeSlot: string;
+            reason: string | null;
+            appointmentRequestId: string | null;
+            status: import(".prisma/client").$Enums.AppointmentStatus;
+            cancellationReason: string | null;
+            appointmentNumber: string;
+        }) | null;
+        payments: {
+            id: string;
+            invoiceId: string;
+            receiptNumber: string;
+            amount: import("@prisma/client/runtime/library").Decimal;
+            paymentMethod: import(".prisma/client").$Enums.PaymentMethod;
+            transactionRef: string | null;
+            receivedBy: string | null;
+            notes: string | null;
+            paidAt: Date;
+        }[];
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        patientId: string;
+        status: import(".prisma/client").$Enums.InvoiceStatus;
+        appointmentId: string | null;
+        invoiceNumber: string;
+        subtotal: import("@prisma/client/runtime/library").Decimal;
+        discount: import("@prisma/client/runtime/library").Decimal;
+        tax: import("@prisma/client/runtime/library").Decimal;
+        total: import("@prisma/client/runtime/library").Decimal;
+        paidAmount: import("@prisma/client/runtime/library").Decimal;
+        balance: import("@prisma/client/runtime/library").Decimal;
+        dueDate: Date | null;
+    }>;
+}

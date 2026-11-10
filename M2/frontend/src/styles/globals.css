@@ -1,0 +1,250 @@
+/* ============================================================
+   GLOBAL STYLES — Women's Healthcare Clinic
+   ============================================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Google Fonts ---- */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+
+/* ---- CSS Custom Properties ---- */
+:root {
+  /* Brand Colors */
+  --color-blush: #EBC4CF;
+  --color-blush-light: #F7E7EC;
+  --color-plum: #70405B;
+  --color-plum-dark: #442B3B;
+  --color-ivory: #FAF5EF;
+  --color-lavender: #DCD2EE;
+  --color-sage: #B9CBB7;
+  --color-sage-bg: #EEF3EC;
+  --color-rose-muted: #C9859D;
+  --color-text-secondary: #756A73;
+  --color-border-soft: #E9DFE3;
+  --color-white: #FFFFFF;
+
+  /* Typography */
+  --font-serif: 'DM Serif Display', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', 'Manrope', system-ui, sans-serif;
+
+  /* Spacing */
+  --section-padding-y: 5rem;
+  --section-padding-x: 1.5rem;
+  --content-max-width: 1200px;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+
+  /* Shadows */
+  --shadow-soft: 0 2px 20px rgba(112, 64, 91, 0.06);
+  --shadow-card: 0 4px 24px rgba(112, 64, 91, 0.08);
+  --shadow-elevated: 0 8px 40px rgba(112, 64, 91, 0.12);
+
+  /* Animation */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ---- Base Reset ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-ivory);
+  color: var(--color-plum-dark);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* ---- Focus Styles (Accessibility) ---- */
+:focus-visible {
+  outline: 2px solid var(--color-plum);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Typography Base ---- */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  color: var(--color-plum-dark);
+  line-height: 1.15;
+  font-weight: 400;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-sans);
+  color: var(--color-plum-dark);
+  font-weight: 600;
+}
+
+p {
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+}
+
+/* ---- Utility Classes ---- */
+@layer utilities {
+  .font-serif { font-family: var(--font-serif); }
+  .font-sans { font-family: var(--font-sans); }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .section-container {
+    width: 100%;
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--section-padding-x);
+  }
+
+  .section-py {
+    padding-block: var(--section-padding-y);
+  }
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-blush);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-plum);
+}
+
+/* ---- Selection ---- */
+::selection {
+  background: var(--color-blush);
+  color: var(--color-plum-dark);
+}
+
+/* ---- Prose Content (Article body HTML styling) ---- */
+.prose-content {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  font-family: var(--font-sans);
+}
+
+.prose-content h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  color: var(--color-plum-dark);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.prose-content h3 {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-plum-dark);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-content p {
+  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+}
+
+.prose-content ul {
+  list-style: none;
+  margin: 1rem 0 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prose-content ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.prose-content ul li::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-blush);
+  flex-shrink: 0;
+  margin-top: 0.55em;
+}
+
+.prose-content strong {
+  color: var(--color-plum-dark);
+  font-weight: 600;
+}
+
+.prose-content a {
+  color: var(--color-plum);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose-content a:hover {
+  color: var(--color-plum-dark);
+}

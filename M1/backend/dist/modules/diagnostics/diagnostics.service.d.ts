@@ -1,0 +1,185 @@
+import { PrismaService } from '../../prisma/prisma.service.js';
+import { CreateDiagnosticOrderDto, UpdateDiagnosticOrderDto } from './dto/diagnostic-order.dto.js';
+import { DiagnosticStatus } from '@prisma/client';
+export declare class DiagnosticsService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    generateOrderNumber(): string;
+    createOrder(dto: CreateDiagnosticOrderDto): Promise<{
+        patient: {
+            email: string | null;
+            id: string;
+            fullName: string;
+            phone: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            dob: Date;
+            gender: string;
+            bloodGroup: string | null;
+            address: string | null;
+            emergencyContactName: string | null;
+            emergencyContactPhone: string | null;
+            allergies: string[];
+            medicalConditions: string[];
+            currentMedications: string[];
+            medicalHistory: string | null;
+            menstrualHistory: string | null;
+            pregnancyHistory: string | null;
+            previousSurgeries: string | null;
+        };
+        orderingDoctor: {
+            id: string;
+            isActive: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            slug: string;
+            qualification: string;
+            specialty: string;
+            experienceYears: number | null;
+            biography: string;
+            areasOfExpertise: string[];
+            profileImage: string | null;
+        };
+    } & {
+        id: string;
+        updatedAt: Date;
+        patientId: string;
+        status: import(".prisma/client").$Enums.DiagnosticStatus;
+        orderNumber: string;
+        orderingDoctorId: string;
+        consultationId: string | null;
+        assignedLabStaffId: string | null;
+        testName: string;
+        testCategory: string;
+        sampleCollectedAt: Date | null;
+        resultsNotes: string | null;
+        reportUrl: string | null;
+        standardPrice: import("@prisma/client/runtime/library").Decimal;
+        isReviewed: boolean;
+        reviewedAt: Date | null;
+        orderedAt: Date;
+    }>;
+    findAll(query?: {
+        status?: DiagnosticStatus;
+        patientId?: string;
+    }): Promise<({
+        patient: {
+            email: string | null;
+            id: string;
+            fullName: string;
+            phone: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            dob: Date;
+            gender: string;
+            bloodGroup: string | null;
+            address: string | null;
+            emergencyContactName: string | null;
+            emergencyContactPhone: string | null;
+            allergies: string[];
+            medicalConditions: string[];
+            currentMedications: string[];
+            medicalHistory: string | null;
+            menstrualHistory: string | null;
+            pregnancyHistory: string | null;
+            previousSurgeries: string | null;
+        };
+        orderingDoctor: {
+            id: string;
+            isActive: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            slug: string;
+            qualification: string;
+            specialty: string;
+            experienceYears: number | null;
+            biography: string;
+            areasOfExpertise: string[];
+            profileImage: string | null;
+        };
+        assignedLabStaff: {
+            fullName: string;
+        } | null;
+    } & {
+        id: string;
+        updatedAt: Date;
+        patientId: string;
+        status: import(".prisma/client").$Enums.DiagnosticStatus;
+        orderNumber: string;
+        orderingDoctorId: string;
+        consultationId: string | null;
+        assignedLabStaffId: string | null;
+        testName: string;
+        testCategory: string;
+        sampleCollectedAt: Date | null;
+        resultsNotes: string | null;
+        reportUrl: string | null;
+        standardPrice: import("@prisma/client/runtime/library").Decimal;
+        isReviewed: boolean;
+        reviewedAt: Date | null;
+        orderedAt: Date;
+    })[]>;
+    updateOrder(id: string, dto: UpdateDiagnosticOrderDto, staffUserId?: string): Promise<{
+        patient: {
+            email: string | null;
+            id: string;
+            fullName: string;
+            phone: string;
+            createdAt: Date;
+            updatedAt: Date;
+            patientId: string;
+            dob: Date;
+            gender: string;
+            bloodGroup: string | null;
+            address: string | null;
+            emergencyContactName: string | null;
+            emergencyContactPhone: string | null;
+            allergies: string[];
+            medicalConditions: string[];
+            currentMedications: string[];
+            medicalHistory: string | null;
+            menstrualHistory: string | null;
+            pregnancyHistory: string | null;
+            previousSurgeries: string | null;
+        };
+        orderingDoctor: {
+            id: string;
+            isActive: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+            name: string;
+            slug: string;
+            qualification: string;
+            specialty: string;
+            experienceYears: number | null;
+            biography: string;
+            areasOfExpertise: string[];
+            profileImage: string | null;
+        };
+        assignedLabStaff: {
+            fullName: string;
+        } | null;
+    } & {
+        id: string;
+        updatedAt: Date;
+        patientId: string;
+        status: import(".prisma/client").$Enums.DiagnosticStatus;
+        orderNumber: string;
+        orderingDoctorId: string;
+        consultationId: string | null;
+        assignedLabStaffId: string | null;
+        testName: string;
+        testCategory: string;
+        sampleCollectedAt: Date | null;
+        resultsNotes: string | null;
+        reportUrl: string | null;
+        standardPrice: import("@prisma/client/runtime/library").Decimal;
+        isReviewed: boolean;
+        reviewedAt: Date | null;
+        orderedAt: Date;
+    }>;
+}
