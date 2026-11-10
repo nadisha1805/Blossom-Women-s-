@@ -1,0 +1,287 @@
+// ============================================================
+// SERVICES DATA — Women's Healthcare Clinic
+// ============================================================
+// Replace or extend this file with confirmed clinic service details.
+
+export interface Service {
+  id: string;
+  name: string;
+  slug: string;
+  shortDescription: string;
+  fullDescription: string;
+  whatItCovers: string[];
+  whenToConsult: string[];
+  howToPrepare: string[];
+  image: string;
+  icon: string;
+  relatedSlugs: string[];
+  visible: boolean;
+}
+
+const services: Service[] = [
+  {
+    id: 'gynecology',
+    name: 'Gynecology',
+    slug: 'gynecology',
+    shortDescription: 'Compassionate, comprehensive gynecological care for every stage of your life, from routine wellness visits to specialist consultations.',
+    fullDescription: `Our gynecology service provides a warm, respectful space for women to receive thorough and attentive care. Whether you are attending a routine check-up, experiencing concerning symptoms, or seeking specialist advice, our team is here to listen, assess, and support you with clinical expertise and genuine compassion.`,
+    whatItCovers: [
+      'Routine pelvic examinations and cervical screenings',
+      'Menstrual health assessment and management',
+      'Evaluation and management of pelvic pain',
+      'Vaginal health consultations',
+      'Contraception guidance and counseling',
+      'Assessment of abnormal discharge or bleeding',
+      'Referral coordination for specialist investigations',
+    ],
+    whenToConsult: [
+      'You are due for a routine cervical screening',
+      'You are experiencing irregular, painful, or heavy periods',
+      'You have pelvic or lower abdominal discomfort',
+      'You notice changes in vaginal discharge or odor',
+      'You have questions about contraception options',
+      'You have concerns about sexual or reproductive health',
+    ],
+    howToPrepare: [
+      'Note your last menstrual period date',
+      'Bring a list of any current medications or supplements',
+      'Write down any symptoms you have been experiencing and when they began',
+      'Avoid vaginal products 24 hours before a pelvic exam if possible',
+      'Feel free to bring a trusted support person if it helps you feel comfortable',
+    ],
+    image: '/assets/images/service-gynecology.png',
+    icon: 'stethoscope',
+    relatedSlugs: ['menstrual-health', 'preventive-screenings', 'pcos'],
+    visible: true,
+  },
+  {
+    id: 'antenatal-care',
+    name: 'Pregnancy & Antenatal Care',
+    slug: 'antenatal-care',
+    shortDescription: 'Supportive, evidence-based antenatal care to nurture your health and your baby\'s wellbeing through every trimester.',
+    fullDescription: `Pregnancy is one of the most significant experiences in a woman's life, and we are honored to share that journey with you. Our antenatal care program offers structured monitoring, health guidance, and compassionate support from your earliest weeks through to the preparation for birth.`,
+    whatItCovers: [
+      'Antenatal consultations at key stages of pregnancy',
+      'Blood pressure, weight, and general health monitoring',
+      'Nutritional guidance and supplement advice',
+      'Discussion of common pregnancy symptoms and concerns',
+      'Birth plan discussions and preparation guidance',
+      'Referral for specialist ultrasound or investigations',
+      'Coordination with obstetric and midwifery teams as appropriate',
+    ],
+    whenToConsult: [
+      'You have received a positive pregnancy test',
+      'You have questions or concerns during pregnancy',
+      'You are experiencing symptoms such as nausea, spotting, or swelling',
+      'You are preparing for your first antenatal visit',
+      'You wish to discuss your birth preferences',
+    ],
+    howToPrepare: [
+      'Note the first day of your last menstrual period',
+      'List any chronic conditions or medications you take',
+      'Prepare questions about your pregnancy journey',
+      'Bring any previous pregnancy or obstetric records if available',
+    ],
+    image: '/assets/images/service-maternity.png',
+    icon: 'heart',
+    relatedSlugs: ['postnatal-care', 'gynecology'],
+    visible: true,
+  },
+  {
+    id: 'postnatal-care',
+    name: 'Postnatal Care',
+    slug: 'postnatal-care',
+    shortDescription: 'Attentive postnatal support to help you recover, adjust, and thrive in the weeks and months after childbirth.',
+    fullDescription: `The period after birth is as important as pregnancy itself. Our postnatal care service supports your physical recovery, emotional wellbeing, and infant feeding journey, helping you navigate the early weeks with confidence and appropriate clinical care.`,
+    whatItCovers: [
+      'Postnatal check-up consultations',
+      'Physical recovery assessment',
+      'Emotional and mental wellbeing support and signposting',
+      'Infant feeding guidance and support',
+      'Wound care and perineal health assessment',
+      'Contraception discussion post-birth',
+      'Return-to-activity guidance',
+    ],
+    whenToConsult: [
+      'You are within the postnatal period and require a check-up',
+      'You are experiencing pain, wound concerns, or urinary symptoms',
+      'You are concerned about your mood, anxiety, or emotional state',
+      'You need guidance on feeding or infant care',
+      'You have questions about resuming activity or exercise',
+    ],
+    howToPrepare: [
+      'Note the date and method of delivery',
+      'List any concerns you have since the birth',
+      'Note any medications prescribed in hospital',
+      'Feel free to bring your baby to the appointment',
+    ],
+    image: '/assets/images/service-wellness.png',
+    icon: 'baby',
+    relatedSlugs: ['antenatal-care', 'gynecology'],
+    visible: true,
+  },
+  {
+    id: 'menstrual-health',
+    name: 'Menstrual Health',
+    slug: 'menstrual-health',
+    shortDescription: 'Thorough assessment and supportive management of menstrual concerns, from irregular cycles to pain and heavy bleeding.',
+    fullDescription: `Your menstrual health is an important indicator of your overall wellbeing. If your cycle is causing you disruption, discomfort, or concern, our specialist team can provide an accurate assessment, explore possible causes, and work with you to find a management approach that fits your life.`,
+    whatItCovers: [
+      'Assessment of irregular, absent, or frequent periods',
+      'Evaluation and management of heavy menstrual bleeding',
+      'Painful period assessment and treatment options',
+      'Premenstrual syndrome (PMS) and PMDD support',
+      'Investigation and management of intermenstrual bleeding',
+      'Hormonal discussions and treatment options',
+    ],
+    whenToConsult: [
+      'Your periods are very painful or disrupting your daily life',
+      'You are experiencing very heavy or prolonged bleeding',
+      'Your cycle is irregular, absent, or has changed significantly',
+      'You bleed between periods or after intercourse',
+      'Premenstrual symptoms are affecting your mood or wellbeing',
+    ],
+    howToPrepare: [
+      'Track your cycle for 2–3 months before your appointment if possible',
+      'Note the heaviness, duration, and any pain experienced',
+      'List any products or medications you currently use',
+      'Bring any previous investigation results if available',
+    ],
+    image: '/assets/images/service-gynecology.png',
+    icon: 'activity',
+    relatedSlugs: ['gynecology', 'pcos', 'preventive-screenings'],
+    visible: true,
+  },
+  {
+    id: 'pcos',
+    name: 'PCOS Consultations',
+    slug: 'pcos',
+    shortDescription: 'Specialized assessment and personalized management for Polycystic Ovary Syndrome, supporting hormonal balance and long-term wellbeing.',
+    fullDescription: `Polycystic Ovary Syndrome (PCOS) is a common hormonal condition that affects many women, and its impacts can range from menstrual irregularities to concerns about fertility, metabolism, and skin health. Our consultations offer a thorough, individualized assessment and evidence-based guidance to help you manage PCOS effectively.`,
+    whatItCovers: [
+      'Diagnostic assessment and investigations for PCOS',
+      'Hormonal health review and management',
+      'Discussion of metabolic and cardiovascular health factors',
+      'Management of PCOS-related symptoms including acne and hair changes',
+      'Menstrual cycle regulation guidance',
+      'Fertility implications of PCOS and relevant options',
+      'Lifestyle and nutrition guidance in the context of PCOS',
+    ],
+    whenToConsult: [
+      'You have been diagnosed with PCOS and are seeking ongoing management',
+      'You have irregular periods and other symptoms that suggest PCOS',
+      'You are concerned about how PCOS may affect your fertility',
+      'You are experiencing PCOS-related symptoms such as acne, excess hair, or weight changes',
+    ],
+    howToPrepare: [
+      'Note your menstrual cycle history and current symptoms',
+      'List any previous blood tests or investigations',
+      'Bring any hormonal medications you are currently taking',
+      'Prepare questions about long-term management and fertility',
+    ],
+    image: '/assets/images/service-wellness.png',
+    icon: 'zap',
+    relatedSlugs: ['menstrual-health', 'fertility', 'gynecology'],
+    visible: true,
+  },
+  {
+    id: 'fertility',
+    name: 'Fertility Consultations',
+    slug: 'fertility',
+    shortDescription: 'Sensitive, evidence-informed fertility consultations providing assessment, guidance, and support for women and couples on their family-planning journey.',
+    fullDescription: `Questions and concerns about fertility deserve careful, compassionate attention. Our fertility consultations provide a private and respectful environment in which to discuss your situation, explore relevant investigations, and understand the options available to you. We support you with honesty, empathy, and clinical expertise.`,
+    whatItCovers: [
+      'Initial fertility assessment consultations',
+      'Discussion of fertility investigation options',
+      'Assessment of factors that may influence fertility',
+      'Ovulation assessment and cycle review',
+      'Pre-conception health counseling',
+      'Guidance on referral pathways for specialist fertility treatments',
+      'Support for those experiencing recurrent pregnancy loss',
+    ],
+    whenToConsult: [
+      'You have been trying to conceive for some time without success',
+      'You are considering conception and want a pre-conception assessment',
+      'You have a condition such as PCOS or endometriosis and are concerned about fertility',
+      'You have experienced one or more pregnancy losses',
+      'You want to understand your fertility options before making decisions',
+    ],
+    howToPrepare: [
+      'Note how long you have been trying to conceive, if applicable',
+      'Bring any previous fertility investigations or gynecological records',
+      'List any medications, supplements, or hormonal treatments',
+      'Consider what questions and concerns are most important to you',
+    ],
+    image: '/assets/images/service-fertility.png',
+    icon: 'sun',
+    relatedSlugs: ['pcos', 'gynecology', 'antenatal-care'],
+    visible: true,
+  },
+  {
+    id: 'menopause-care',
+    name: 'Menopause Care',
+    slug: 'menopause-care',
+    shortDescription: 'Personalized menopause care and perimenopause support, helping you navigate this life stage with confidence and comfort.',
+    fullDescription: `Menopause is a significant transition, and its symptoms can range from mild to profoundly disruptive. Our menopause care service offers personalized assessment, honest discussion of treatment options including hormone replacement therapy considerations, and ongoing support to help you thrive through this stage of life.`,
+    whatItCovers: [
+      'Perimenopause and menopause assessment',
+      'Symptom review including hot flushes, sleep disturbance, mood, and joint health',
+      'Discussion of hormone replacement therapy (HRT) and alternatives',
+      'Bone health and osteoporosis prevention guidance',
+      'Cardiovascular health considerations',
+      'Vaginal and urinary health in menopause',
+      'Mental health and cognitive wellbeing support',
+    ],
+    whenToConsult: [
+      'You are experiencing symptoms that may be related to perimenopause or menopause',
+      'You want to discuss HRT or alternatives',
+      'You are concerned about bone health, cardiovascular health, or other long-term effects',
+      'You are under 45 and concerned about early menopause symptoms',
+      'You want a comprehensive menopause health review',
+    ],
+    howToPrepare: [
+      'Note the nature, frequency, and severity of your symptoms',
+      'Record your last menstrual period date',
+      'List any current medications and supplements',
+      'Bring any recent blood test results if available',
+    ],
+    image: '/assets/images/service-wellness.png',
+    icon: 'leaf',
+    relatedSlugs: ['gynecology', 'preventive-screenings'],
+    visible: true,
+  },
+  {
+    id: 'preventive-screenings',
+    name: 'Preventive Screenings',
+    slug: 'preventive-screenings',
+    shortDescription: 'Proactive women\'s health screenings to detect concerns early and empower informed healthcare decisions.',
+    fullDescription: `Preventive healthcare is one of the most powerful tools for maintaining your long-term health and wellbeing. Our screening services provide a structured approach to monitoring key health indicators, detecting potential concerns early, and providing the information you need to make confident decisions about your health.`,
+    whatItCovers: [
+      'Cervical screening (smear tests)',
+      'Breast health assessment and examination guidance',
+      'Blood pressure and cardiovascular health checks',
+      'Blood glucose and metabolic screening',
+      'Thyroid function review',
+      'Cholesterol and lipid profile assessment',
+      'Age-appropriate general health review and screening discussions',
+    ],
+    whenToConsult: [
+      'You are due for a routine cervical screening',
+      'You want a comprehensive annual health check',
+      'You have a family history of certain conditions and wish to discuss screening options',
+      'You have not had a recent general health review',
+    ],
+    howToPrepare: [
+      'Note the date of your last screening visits',
+      'Bring a list of your current medications',
+      'Note any family history of relevant conditions',
+      'Fast for lipid or glucose testing if advised when booking',
+    ],
+    image: '/assets/images/service-wellness.png',
+    icon: 'shield',
+    relatedSlugs: ['gynecology', 'menopause-care', 'menstrual-health'],
+    visible: true,
+  },
+];
+
+export default services;

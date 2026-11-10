@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
@@ -91,11 +91,20 @@ export default function Header() {
             </nav>
 
             {/* CTA Button + Mobile Toggle */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
+              <Link
+                to="/patient/dashboard"
+                id="header-patient-portal-btn"
+                className="hidden sm:inline-flex items-center gap-1.5 bg-[#FAF5EF] border border-[#EBC4CF] hover:border-[#70405B] text-[#70405B] text-xs font-sans font-semibold px-3 py-2 rounded-xl transition-all duration-200"
+              >
+                <Heart className="w-3.5 h-3.5 text-[#C46A85] fill-[#C46A85]/20" />
+                Patient Portal
+              </Link>
+
               <Link
                 to="/portal/login"
                 id="header-staff-portal-btn"
-                className="hidden md:inline-flex items-center gap-1.5 border border-[#E9DFE3] hover:border-[#70405B] text-[#70405B] text-xs font-sans font-semibold px-3.5 py-2 rounded-xl transition-all duration-200 hover:bg-[#FAF5EF]"
+                className="hidden md:inline-flex items-center gap-1.5 border border-[#E9DFE3] hover:border-[#70405B] text-[#70405B] text-xs font-sans font-semibold px-3 py-2 rounded-xl transition-all duration-200 hover:bg-[#FAF5EF]"
               >
                 Staff Portal
               </Link>
@@ -103,7 +112,7 @@ export default function Header() {
               <Link
                 to="/appointment"
                 id="header-appointment-cta"
-                className="hidden sm:inline-flex items-center gap-2 bg-[#70405B] hover:bg-[#442B3B] text-white text-sm font-sans font-medium px-5 py-2.5 rounded-xl transition-all duration-200 shadow-soft hover:shadow-card"
+                className="hidden sm:inline-flex items-center gap-2 bg-[#70405B] hover:bg-[#442B3B] text-white text-xs font-sans font-medium px-4 py-2 rounded-xl transition-all duration-200 shadow-soft hover:shadow-card"
               >
                 Request Appointment
               </Link>
@@ -153,11 +162,24 @@ export default function Header() {
                     {link.label}
                   </NavLink>
                 ))}
-                <div className="mt-3 pt-3 border-t border-[#E9DFE3]">
+                <div className="mt-3 pt-3 border-t border-[#E9DFE3] space-y-2">
+                  <Link
+                    to="/patient/dashboard"
+                    className="flex items-center justify-center gap-2 bg-[#FAF5EF] border border-[#EBC4CF] text-[#70405B] text-xs font-semibold px-4 py-2.5 rounded-xl w-full"
+                  >
+                    <Heart className="w-3.5 h-3.5 text-[#C46A85]" />
+                    Patient Portal
+                  </Link>
+                  <Link
+                    to="/portal/login"
+                    className="flex items-center justify-center gap-2 border border-[#E9DFE3] text-[#756A73] text-xs font-semibold px-4 py-2 rounded-xl w-full"
+                  >
+                    Staff Portal
+                  </Link>
                   <Link
                     to="/appointment"
                     id="mobile-appointment-cta"
-                    className="flex items-center justify-center gap-2 bg-[#70405B] hover:bg-[#442B3B] text-white text-sm font-sans font-medium px-5 py-3 rounded-xl transition-all duration-200 w-full"
+                    className="flex items-center justify-center gap-2 bg-[#70405B] hover:bg-[#442B3B] text-white text-xs font-sans font-medium px-5 py-3 rounded-xl transition-all duration-200 w-full"
                   >
                     Request an Appointment
                   </Link>

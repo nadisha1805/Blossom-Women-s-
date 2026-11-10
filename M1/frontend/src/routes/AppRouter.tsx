@@ -28,6 +28,21 @@ import NurseDashboardPage from '../pages/Portal/NurseDashboardPage';
 import LabStaffDashboardPage from '../pages/Portal/LabStaffDashboardPage';
 import BillingManagementPage from '../pages/Portal/BillingManagementPage';
 
+// Milestone 3 Patient Portal & Self-Service
+import PatientLayout from '../components/layout/PatientLayout';
+import PatientProtectedRoute from '../components/auth/PatientProtectedRoute';
+import PatientLoginPage from '../pages/Patient/PatientLoginPage';
+import PatientRegisterPage from '../pages/Patient/PatientRegisterPage';
+import PatientDashboardPage from '../pages/Patient/PatientDashboardPage';
+import PatientAppointmentsPage from '../pages/Patient/PatientAppointmentsPage';
+import PatientMedicalRecordsPage from '../pages/Patient/PatientMedicalRecordsPage';
+import PatientPrescriptionsPage from '../pages/Patient/PatientPrescriptionsPage';
+import PatientReportsPage from '../pages/Patient/PatientReportsPage';
+import PatientBillingPage from '../pages/Patient/PatientBillingPage';
+import PatientNotificationsPage from '../pages/Patient/PatientNotificationsPage';
+import PatientSupportPage from '../pages/Patient/PatientSupportPage';
+import PatientProfilePage from '../pages/Patient/PatientProfilePage';
+
 export default function AppRouter() {
   return (
     <Routes>
@@ -167,6 +182,28 @@ export default function AppRouter() {
           >
             <Route index element={<BillingManagementPage />} />
           </Route>
+        </Route>
+      </Route>
+
+      {/* ───────────────────────────────────────────────────────────
+          3. PATIENT PORTAL (MILESTONE 3)
+         ─────────────────────────────────────────────────────────── */}
+      <Route path="/patient/login" element={<PatientLoginPage />} />
+      <Route path="/patient/register" element={<PatientRegisterPage />} />
+
+      {/* Protected Patient Portal Experience */}
+      <Route element={<PatientProtectedRoute />}>
+        <Route element={<PatientLayout />}>
+          <Route path="/patient" element={<Navigate to="/patient/dashboard" replace />} />
+          <Route path="/patient/dashboard" element={<PatientDashboardPage />} />
+          <Route path="/patient/appointments" element={<PatientAppointmentsPage />} />
+          <Route path="/patient/consultations" element={<PatientMedicalRecordsPage />} />
+          <Route path="/patient/prescriptions" element={<PatientPrescriptionsPage />} />
+          <Route path="/patient/reports" element={<PatientReportsPage />} />
+          <Route path="/patient/billing" element={<PatientBillingPage />} />
+          <Route path="/patient/notifications" element={<PatientNotificationsPage />} />
+          <Route path="/patient/support" element={<PatientSupportPage />} />
+          <Route path="/patient/profile" element={<PatientProfilePage />} />
         </Route>
       </Route>
 

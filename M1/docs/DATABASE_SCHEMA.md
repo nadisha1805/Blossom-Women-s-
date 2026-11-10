@@ -116,7 +116,51 @@ Educational women's health content and resources.
 
 ---
 
-### Future Milestone Extension Points
-- **Milestone 2:** User & Staff authentication (`users`, `roles`, `permissions`), `patient_records`, `consultation_notes`, `prescriptions`, `diagnostics_orders`, `billing_invoices`.
-- **Milestone 3:** `patient_portal_accounts`, `portal_notifications`, `payment_transactions`, `appointment_slots`.
+### Milestone 3 Database Schema Extensions
+
+#### 1. PatientAccount (`patient_accounts`)
+- `id` (UUID, PK)
+- `email` (VARCHAR, UNIQUE)
+- `passwordHash` (TEXT)
+- `fullName` (VARCHAR)
+- `phone` (VARCHAR)
+- `dob` (TIMESTAMP)
+- `isActive` (BOOLEAN, DEFAULT true)
+- `linkedPatientId` (UUID, FK -> `patients.id`)
+- `createdAt`, `updatedAt` (TIMESTAMP)
+
+#### 2. PaymentTransaction (`payment_transactions`)
+- `id` (UUID, PK)
+- `orderId` (VARCHAR, UNIQUE) - Razorpay / gateway order reference
+- `paymentId` (VARCHAR, NULLABLE) - Verified transaction reference
+- `signature` (VARCHAR, NULLABLE) - HMAC-SHA256 signature
+- `amount` (DECIMAL)
+- `currency` (VARCHAR, DEFAULT 'INR')
+- `status` (VARCHAR) - CREATED, SUCCESS, FAILED
+- `invoiceId` (UUID, FK -> `invoices.id`)
+- `patientAccountId` (UUID, FK -> `patient_accounts.id`)
+- `createdAt`, `updatedAt` (TIMESTAMP)
+
+#### 3. PatientNotification (`patient_notifications`)
+- `id` (UUID, PK)
+- `patientAccountId` (UUID, FK -> `patient_accounts.id`)
+- `title` (VARCHAR)
+- `message` (TEXT)
+- `category` (VARCHAR) - SYSTEM, APPOINTMENT, LAB, PRESCRIPTION, BILLING
+- `isRead` (BOOLEAN, DEFAULT false)
+- `linkUrl` (VARCHAR, NULLABLE)
+- `createdAt` (TIMESTAMP)
+
+#### 4. PatientSupportRequest (`patient_support_requests`)
+- `id` (UUID, PK)
+- `ticketNumber` (VARCHAR, UNIQUE, e.g. 'SUP-2026-1042')
+- `patientAccountId` (UUID, FK -> `patient_accounts.id`)
+- `subject` (VARCHAR)
+- `category` (VARCHAR) - CLINICAL, APPOINTMENT, BILLING, TECHNICAL
+- `description` (TEXT)
+- `status` (VARCHAR, DEFAULT 'OPEN') - OPEN, IN_REVIEW, RESOLVED
+- `createdAt`, `updatedAt` (TIMESTAMP)
+
+#### 5. Clinical Release Gating (`isReleasedToPatient`)
+- Added to `Consultation`, `Prescription`, and `DiagnosticOrder` (BOOLEAN, DEFAULT true for approved records). Shields unverified internal clinical notes from patient self-service until signed off by the attending care team.
 

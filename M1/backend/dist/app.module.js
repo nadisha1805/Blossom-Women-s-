@@ -22,6 +22,8 @@ import { PrescriptionsModule } from './modules/prescriptions/prescriptions.modul
 import { DiagnosticsModule } from './modules/diagnostics/diagnostics.module.js';
 import { BillingModule } from './modules/billing/billing.module.js';
 import { ReportsModule } from './modules/reports/reports.module.js';
+import { PatientAuthModule } from './modules/patient-auth/patient-auth.module.js';
+import { PatientPortalModule } from './modules/patient-portal/patient-portal.module.js';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -42,6 +44,8 @@ AppModule = __decorate([
             DiagnosticsModule,
             BillingModule,
             ReportsModule,
+            PatientAuthModule,
+            PatientPortalModule,
         ],
         controllers: [AppController],
         providers: [AppService],

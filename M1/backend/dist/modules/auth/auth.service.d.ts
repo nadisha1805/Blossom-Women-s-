@@ -25,11 +25,11 @@ export declare class AuthService {
         doctorId: string | null;
         doctor: {
             id: string;
+            name: string;
+            slug: string;
             isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            name: string;
-            slug: string;
             qualification: string;
             specialty: string;
             experienceYears: number | null;

@@ -9,8 +9,20 @@ export declare class JwtStrategy extends JwtStrategy_base {
     validate(payload: {
         sub: string;
         email: string;
-        role: string;
+        role?: string;
+        type?: string;
     }): Promise<{
+        id: string;
+        sub: string;
+        email: string;
+        fullName: string;
+        linkedPatientId: string | null;
+        patientId: string | undefined;
+        type: string;
+        role?: undefined;
+        doctorId?: undefined;
+        doctor?: undefined;
+    } | {
         id: string;
         email: string;
         fullName: string;
@@ -30,6 +42,10 @@ export declare class JwtStrategy extends JwtStrategy_base {
             areasOfExpertise: string[];
             profileImage: string | null;
         } | null;
+        sub?: undefined;
+        linkedPatientId?: undefined;
+        patientId?: undefined;
+        type?: undefined;
     }>;
 }
 export {};

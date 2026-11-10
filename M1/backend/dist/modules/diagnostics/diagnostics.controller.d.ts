@@ -7,13 +7,13 @@ export declare class DiagnosticsController {
     createOrder(dto: CreateDiagnosticOrderDto): Promise<{
         patient: {
             email: string | null;
-            id: string;
-            fullName: string;
             phone: string;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -29,11 +29,11 @@ export declare class DiagnosticsController {
         };
         orderingDoctor: {
             id: string;
+            name: string;
+            slug: string;
             isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            name: string;
-            slug: string;
             qualification: string;
             specialty: string;
             experienceYears: number | null;
@@ -44,8 +44,10 @@ export declare class DiagnosticsController {
     } & {
         id: string;
         updatedAt: Date;
-        patientId: string;
         status: import(".prisma/client").$Enums.DiagnosticStatus;
+        patientId: string;
+        orderedAt: Date;
+        isReleasedToPatient: boolean;
         orderNumber: string;
         orderingDoctorId: string;
         consultationId: string | null;
@@ -58,18 +60,17 @@ export declare class DiagnosticsController {
         standardPrice: import("@prisma/client/runtime/library").Decimal;
         isReviewed: boolean;
         reviewedAt: Date | null;
-        orderedAt: Date;
     }>;
     findAll(status?: DiagnosticStatus, patientId?: string): Promise<({
         patient: {
             email: string | null;
-            id: string;
-            fullName: string;
             phone: string;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -85,11 +86,11 @@ export declare class DiagnosticsController {
         };
         orderingDoctor: {
             id: string;
+            name: string;
+            slug: string;
             isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            name: string;
-            slug: string;
             qualification: string;
             specialty: string;
             experienceYears: number | null;
@@ -103,8 +104,10 @@ export declare class DiagnosticsController {
     } & {
         id: string;
         updatedAt: Date;
-        patientId: string;
         status: import(".prisma/client").$Enums.DiagnosticStatus;
+        patientId: string;
+        orderedAt: Date;
+        isReleasedToPatient: boolean;
         orderNumber: string;
         orderingDoctorId: string;
         consultationId: string | null;
@@ -117,18 +120,17 @@ export declare class DiagnosticsController {
         standardPrice: import("@prisma/client/runtime/library").Decimal;
         isReviewed: boolean;
         reviewedAt: Date | null;
-        orderedAt: Date;
     })[]>;
     updateOrder(id: string, dto: UpdateDiagnosticOrderDto, staffUserId: string): Promise<{
         patient: {
             email: string | null;
-            id: string;
-            fullName: string;
             phone: string;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -144,11 +146,11 @@ export declare class DiagnosticsController {
         };
         orderingDoctor: {
             id: string;
+            name: string;
+            slug: string;
             isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            name: string;
-            slug: string;
             qualification: string;
             specialty: string;
             experienceYears: number | null;
@@ -162,8 +164,10 @@ export declare class DiagnosticsController {
     } & {
         id: string;
         updatedAt: Date;
-        patientId: string;
         status: import(".prisma/client").$Enums.DiagnosticStatus;
+        patientId: string;
+        orderedAt: Date;
+        isReleasedToPatient: boolean;
         orderNumber: string;
         orderingDoctorId: string;
         consultationId: string | null;
@@ -176,6 +180,5 @@ export declare class DiagnosticsController {
         standardPrice: import("@prisma/client/runtime/library").Decimal;
         isReviewed: boolean;
         reviewedAt: Date | null;
-        orderedAt: Date;
     }>;
 }

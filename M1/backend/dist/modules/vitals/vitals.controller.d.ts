@@ -9,8 +9,11 @@ export declare class VitalsController {
             role: import(".prisma/client").$Enums.UserRole;
         };
     } & {
+        id: string;
         patientId: string;
+        recordedAt: Date;
         appointmentId: string | null;
+        recordedById: string;
         systolicBP: number | null;
         diastolicBP: number | null;
         heartRate: number | null;
@@ -19,11 +22,8 @@ export declare class VitalsController {
         spO2: number | null;
         weightKg: import("@prisma/client/runtime/library").Decimal | null;
         heightCm: import("@prisma/client/runtime/library").Decimal | null;
-        nursingNotes: string | null;
-        id: string;
         bmi: import("@prisma/client/runtime/library").Decimal | null;
-        recordedAt: Date;
-        recordedById: string;
+        nursingNotes: string | null;
     }>;
     findByPatient(patientId: string): Promise<({
         recordedBy: {
@@ -31,8 +31,11 @@ export declare class VitalsController {
             role: import(".prisma/client").$Enums.UserRole;
         };
     } & {
+        id: string;
         patientId: string;
+        recordedAt: Date;
         appointmentId: string | null;
+        recordedById: string;
         systolicBP: number | null;
         diastolicBP: number | null;
         heartRate: number | null;
@@ -41,10 +44,7 @@ export declare class VitalsController {
         spO2: number | null;
         weightKg: import("@prisma/client/runtime/library").Decimal | null;
         heightCm: import("@prisma/client/runtime/library").Decimal | null;
-        nursingNotes: string | null;
-        id: string;
         bmi: import("@prisma/client/runtime/library").Decimal | null;
-        recordedAt: Date;
-        recordedById: string;
+        nursingNotes: string | null;
     })[]>;
 }

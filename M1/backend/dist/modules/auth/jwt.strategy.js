@@ -22,6 +22,24 @@ let JwtStrategy = class JwtStrategy extends PassportStrategy(Strategy) {
         this.prisma = prisma;
     }
     async validate(payload) {
+        if (payload.type === 'PATIENT') {
+            const patient = await this.prisma.patientAccount.findUnique({
+                where: { id: payload.sub },
+                include: { linkedPatient: true },
+            });
+            if (!patient || !patient.isActive) {
+                throw new UnauthorizedException('Patient account inactive or not found');
+            }
+            return {
+                id: patient.id,
+                sub: patient.id,
+                email: patient.email,
+                fullName: patient.fullName,
+                linkedPatientId: patient.linkedPatientId,
+                patientId: patient.linkedPatient?.patientId,
+                type: 'PATIENT',
+            };
+        }
         const user = await this.prisma.user.findUnique({
             where: { id: payload.sub },
             include: { doctor: true },

@@ -1,0 +1,102 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Doctor {
+  id                  String               @id @default(uuid())
+  name                String
+  slug                String               @unique
+  qualification       String
+  specialty           String
+  experienceYears     Int?
+  biography           String
+  areasOfExpertise    String[]             @default([])
+  profileImage        String?
+  isActive            Boolean              @default(true)
+  appointmentRequests AppointmentRequest[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  @@map("doctors")
+}
+
+model Service {
+  id                  String               @id @default(uuid())
+  name                String
+  slug                String               @unique
+  description         String
+  benefits            String?
+  whatToExpect        String?
+  category            String?
+  isActive            Boolean              @default(true)
+  appointmentRequests AppointmentRequest[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  @@map("services")
+}
+
+enum AppointmentStatus {
+  REQUESTED
+  CONFIRMED
+  RESCHEDULED
+  CANCELLED
+}
+
+model AppointmentRequest {
+  id                 String            @id @default(uuid())
+  referenceId        String            @unique
+  patientName        String
+  email              String
+  phone              String
+  serviceId          String
+  service            Service           @relation(fields: [serviceId], references: [id])
+  preferredDoctorId  String?
+  preferredDoctor    Doctor?           @relation(fields: [preferredDoctorId], references: [id])
+  preferredDate      DateTime
+  preferredTime      String?
+  reason             String?
+  status             AppointmentStatus @default(REQUESTED)
+  consent            Boolean           @default(false)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  @@map("appointment_requests")
+}
+
+model ContactMessage {
+  id                 String            @id @default(uuid())
+  name               String
+  email              String
+  phone              String?
+  subject            String
+  message            String
+  consent            Boolean           @default(false)
+  isRead             Boolean           @default(false)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  @@map("contact_messages")
+}
+
+model Article {
+  id            String   @id @default(uuid())
+  title         String
+  slug          String   @unique
+  excerpt       String
+  content       String
+  category      String
+  featuredImage String?
+  readTime      String?
+  published     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("articles")
+}
+

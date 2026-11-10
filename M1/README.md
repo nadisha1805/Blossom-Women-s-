@@ -1,15 +1,116 @@
-# Blossom Women's Health Clinic — M1
+# Blossom Women's Health Clinic Management System
 
-> **Milestone 1:** Public-facing clinic website + initial backend & database foundation.
+> **Integrated Healthcare Platform:** Complete solution covering Milestone 1 (Public Website), Milestone 2 (Clinic Management System & Clinical Workflows), and Milestone 3 (Secure Patient Portal, Self-Service & Online Gateway Payments).
 
 ---
 
 ## Project Overview
 
-A premium, responsive website for a multispecialty women's healthcare clinic. Built with a focus on compassionate design, accessibility, and a trustworthy clinical aesthetic.
+A comprehensive, full-stack women's healthcare platform connecting patients, doctors, nurses, laboratory staff, billing specialists, and clinic administrators on a unified PostgreSQL database and NestJS REST API architecture.
 
-**Clinic:** Blossom Women's Health Clinic
-**Milestone:** 1 of 3
+**Platform Capabilities:**
+1. **Milestone 1 — Public Clinic Website:**
+   - Homepage with hero, services preview, featured doctors, patient testimonials, educational resources, interactive FAQ, and contact forms.
+   - Comprehensive service catalog and detailed physician profiles.
+   - Public online appointment booking with immediate validation and conflict prevention.
+2. **Milestone 2 — Clinic Management System & Staff Dashboards:**
+   - Role-Based Access Control (RBAC) with 7 distinct roles: `SUPER_ADMIN`, `CLINIC_ADMIN`, `DOCTOR`, `NURSE`, `RECEPTIONIST`, `LAB_STAFF`, and `BILLING_STAFF`.
+   - Patient Registration & Electronic Medical Records (EMR).
+   - Nurse Vitals entry with automated BMI calculation and status staging.
+   - Doctor Consultation Desk with diagnosis, clinical notes, and ICD-aligned care plans.
+   - Electronic Prescriptions with dosage, frequency, and instructions.
+   - Diagnostic Order Management for Ultrasound, Pathology, Cytology, and Blood Panels.
+   - Itemized Invoicing, tax/discount adjustments, and receipt generation.
+3. **Milestone 3 — Patient Portal & Online Integrations:**
+   - Dedicated Patient Authentication with automatic clinical file linking (`PAT-XXXXX`).
+   - Self-service dashboard displaying upcoming appointments, active prescriptions, released lab results, and current balance.
+   - Appointment booking and cancellation workflows with IDOR protection.
+   - Released Medical Summaries & Doctor notes (`isReleasedToPatient`).
+   - Digital e-Prescriptions with printable prescription slips.
+   - Released Diagnostic & Laboratory reports.
+   - Online Payment Gateway flow with Razorpay order creation and HMAC-SHA256 signature verification.
+   - In-app notification center and Patient Support ticketing system.
+
+---
+
+## Monorepo Architecture
+
+```
+M1/
+├── frontend/       # React SPA (Vite + TypeScript + Tailwind CSS v3)
+│   ├── src/
+│   │   ├── components/layout/   # Public Layout, PortalLayout (Staff), PatientLayout (Patient)
+│   │   ├── context/             # AuthContext (Dual Staff & Patient session handling)
+│   │   ├── pages/               # Public pages (M1), Staff Portal (M2), Patient Portal (M3)
+│   │   ├── routes/              # AppRouter with ProtectedRoute & PatientProtectedRoute
+│   │   └── services/            # api.ts, portalApi.ts, patientPortalApi.ts
+├── backend/        # NestJS REST API (TypeScript + Prisma ORM)
+│   ├── prisma/                  # schema.prisma with migrations & relational constraints
+│   ├── src/
+│   │   ├── modules/auth/        # Staff RBAC authentication & JwtStrategy
+│   │   ├── modules/patient-auth/# Patient authentication & clinical account linking
+│   │   ├── modules/patient-portal/# IDOR-protected patient self-service endpoints
+│   │   ├── modules/billing/     # Invoices, itemized charges & payment recording
+│   │   ├── modules/vitals/      # Nurse clinical vital entries
+│   │   ├── modules/consultations/# Doctor consultation desk
+│   │   ├── modules/prescriptions/# Electronic prescription engine
+│   │   └── modules/diagnostics/ # Laboratory order processing
+└── docs/           # Technical specifications & documentation
+```
+
+---
+
+## Tech Stack
+
+### Frontend
+- **Framework:** React 19 with Vite 8
+- **Language:** TypeScript 5.8
+- **Styling:** Tailwind CSS v3 with PostCSS 8 & Blossom design tokens
+- **Routing:** React Router v7
+- **Icons & Motion:** Lucide React & Framer Motion
+
+### Backend
+- **Framework:** NestJS 10
+- **Language:** TypeScript 5
+- **ORM:** Prisma ORM 5.22
+- **Database:** PostgreSQL (with connection deferral for reliable startup)
+- **Security:** Passport JWT, Bcrypt password hashing, HMAC-SHA256 signature verification, IDOR validation guards
+- **Documentation:** Swagger / OpenAPI UI at `/api/docs`
+- **Testing:** Vitest (17 passing unit and integration tests)
+
+---
+
+## Quick Start Guide
+
+### 1. Backend Setup
+```bash
+cd backend
+npm install
+npx prisma generate
+npm test          # Run test suite (17 passed)
+npm run start:dev # Runs at http://localhost:3001/api (Swagger: /api/docs)
+```
+
+### 2. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev       # Runs at http://127.0.0.1:5173
+```
+
+---
+
+## Portals & Credentials
+
+- **Public Website:** `http://127.0.0.1:5173/`
+- **Patient Portal:** `http://127.0.0.1:5173/patient/login`
+  - Demo Account: `eleanor.vance@example.com` (or use one-click "Quick Demo Login")
+- **Staff Portal:** `http://127.0.0.1:5173/portal/login`
+  - Admin: `admin@blossomclinic.com` / `admin123`
+  - Doctor: `doctor@blossomclinic.com` / `doctor123`
+  - Nurse: `nurse@blossomclinic.com` / `nurse123`
+  - Lab: `lab@blossomclinic.com` / `lab123`
+  - Billing: `billing@blossomclinic.com` / `billing123`
 
 ---
 

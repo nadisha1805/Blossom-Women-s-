@@ -8,11 +8,11 @@ export declare class AppointmentsManagementService {
     createBooking(dto: CreateBookingDto): Promise<{
         doctor: {
             id: string;
+            name: string;
+            slug: string;
             isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            name: string;
-            slug: string;
             qualification: string;
             specialty: string;
             experienceYears: number | null;
@@ -20,15 +20,28 @@ export declare class AppointmentsManagementService {
             areasOfExpertise: string[];
             profileImage: string | null;
         };
-        patient: {
-            email: string | null;
+        service: {
+            description: string;
             id: string;
-            fullName: string;
-            phone: string;
+            name: string;
+            slug: string;
+            benefits: string | null;
+            whatToExpect: string | null;
+            category: string | null;
+            standardFee: import("@prisma/client/runtime/library").Decimal;
+            isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+        };
+        patient: {
+            email: string | null;
+            phone: string;
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -42,34 +55,21 @@ export declare class AppointmentsManagementService {
             pregnancyHistory: string | null;
             previousSurgeries: string | null;
         };
-        service: {
-            description: string;
-            id: string;
-            isActive: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            name: string;
-            slug: string;
-            benefits: string | null;
-            whatToExpect: string | null;
-            category: string | null;
-            standardFee: import("@prisma/client/runtime/library").Decimal;
-        };
     } & {
         type: string;
+        serviceId: string;
+        reason: string | null;
         id: string;
-        doctorId: string;
         createdAt: Date;
         updatedAt: Date;
-        patientId: string;
-        serviceId: string;
-        scheduledDate: Date;
-        scheduledTimeSlot: string;
-        reason: string | null;
-        appointmentRequestId: string | null;
         status: import(".prisma/client").$Enums.AppointmentStatus;
-        cancellationReason: string | null;
+        doctorId: string;
+        patientId: string;
+        scheduledDate: Date;
         appointmentNumber: string;
+        scheduledTimeSlot: string;
+        cancellationReason: string | null;
+        appointmentRequestId: string | null;
     }>;
     findAll(query?: {
         doctorId?: string;
@@ -80,11 +80,11 @@ export declare class AppointmentsManagementService {
     }): Promise<({
         doctor: {
             id: string;
+            name: string;
+            slug: string;
             isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            name: string;
-            slug: string;
             qualification: string;
             specialty: string;
             experienceYears: number | null;
@@ -92,6 +92,62 @@ export declare class AppointmentsManagementService {
             areasOfExpertise: string[];
             profileImage: string | null;
         };
+        service: {
+            description: string;
+            id: string;
+            name: string;
+            slug: string;
+            benefits: string | null;
+            whatToExpect: string | null;
+            category: string | null;
+            standardFee: import("@prisma/client/runtime/library").Decimal;
+            isActive: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+        };
+        patient: {
+            email: string | null;
+            phone: string;
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            fullName: string;
+            dob: Date;
+            patientId: string;
+            gender: string;
+            bloodGroup: string | null;
+            address: string | null;
+            emergencyContactName: string | null;
+            emergencyContactPhone: string | null;
+            allergies: string[];
+            medicalConditions: string[];
+            currentMedications: string[];
+            medicalHistory: string | null;
+            menstrualHistory: string | null;
+            pregnancyHistory: string | null;
+            previousSurgeries: string | null;
+        };
+        consultation: {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            status: import(".prisma/client").$Enums.ConsultationStatus;
+            doctorId: string;
+            patientId: string;
+            consultationNumber: string;
+            appointmentId: string;
+            chiefComplaint: string;
+            symptoms: string | null;
+            clinicalFindings: string | null;
+            diagnosis: string;
+            treatmentPlan: string;
+            specialtyType: string | null;
+            specialtyDetails: import("@prisma/client/runtime/library").JsonValue | null;
+            isReleasedToPatient: boolean;
+            followUpDate: Date | null;
+            followUpNotes: string | null;
+            signedAt: Date | null;
+        } | null;
         vitalRecords: {
             id: string;
             patientId: string;
@@ -109,15 +165,59 @@ export declare class AppointmentsManagementService {
             bmi: import("@prisma/client/runtime/library").Decimal | null;
             nursingNotes: string | null;
         }[];
-        patient: {
-            email: string | null;
+    } & {
+        type: string;
+        serviceId: string;
+        reason: string | null;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        status: import(".prisma/client").$Enums.AppointmentStatus;
+        doctorId: string;
+        patientId: string;
+        scheduledDate: Date;
+        appointmentNumber: string;
+        scheduledTimeSlot: string;
+        cancellationReason: string | null;
+        appointmentRequestId: string | null;
+    })[]>;
+    findOne(id: string): Promise<{
+        doctor: {
             id: string;
-            fullName: string;
-            phone: string;
+            name: string;
+            slug: string;
+            isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+            qualification: string;
+            specialty: string;
+            experienceYears: number | null;
+            biography: string;
+            areasOfExpertise: string[];
+            profileImage: string | null;
+        };
+        service: {
+            description: string;
+            id: string;
+            name: string;
+            slug: string;
+            benefits: string | null;
+            whatToExpect: string | null;
+            category: string | null;
+            standardFee: import("@prisma/client/runtime/library").Decimal;
+            isActive: boolean;
+            createdAt: Date;
+            updatedAt: Date;
+        };
+        patient: {
+            email: string | null;
+            phone: string;
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -131,28 +231,59 @@ export declare class AppointmentsManagementService {
             pregnancyHistory: string | null;
             previousSurgeries: string | null;
         };
-        service: {
-            description: string;
+        consultation: ({
+            diagnosticOrders: {
+                id: string;
+                updatedAt: Date;
+                status: import(".prisma/client").$Enums.DiagnosticStatus;
+                patientId: string;
+                orderedAt: Date;
+                isReleasedToPatient: boolean;
+                orderNumber: string;
+                orderingDoctorId: string;
+                consultationId: string | null;
+                assignedLabStaffId: string | null;
+                testName: string;
+                testCategory: string;
+                sampleCollectedAt: Date | null;
+                resultsNotes: string | null;
+                reportUrl: string | null;
+                standardPrice: import("@prisma/client/runtime/library").Decimal;
+                isReviewed: boolean;
+                reviewedAt: Date | null;
+            }[];
+            prescriptions: ({
+                items: {
+                    id: string;
+                    createdAt: Date;
+                    prescriptionId: string;
+                    medicationName: string;
+                    dosage: string;
+                    frequency: string;
+                    duration: string;
+                    instructions: string | null;
+                }[];
+            } & {
+                id: string;
+                updatedAt: Date;
+                status: import(".prisma/client").$Enums.PrescriptionStatus;
+                doctorId: string;
+                patientId: string;
+                issuedAt: Date;
+                isReleasedToPatient: boolean;
+                consultationId: string | null;
+                prescriptionNumber: string;
+                clinicalNotes: string | null;
+            })[];
+        } & {
             id: string;
-            isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            name: string;
-            slug: string;
-            benefits: string | null;
-            whatToExpect: string | null;
-            category: string | null;
-            standardFee: import("@prisma/client/runtime/library").Decimal;
-        };
-        consultation: {
-            id: string;
-            doctorId: string;
-            createdAt: Date;
-            updatedAt: Date;
-            patientId: string;
             status: import(".prisma/client").$Enums.ConsultationStatus;
-            appointmentId: string;
+            doctorId: string;
+            patientId: string;
             consultationNumber: string;
+            appointmentId: string;
             chiefComplaint: string;
             symptoms: string | null;
             clinicalFindings: string | null;
@@ -160,41 +291,11 @@ export declare class AppointmentsManagementService {
             treatmentPlan: string;
             specialtyType: string | null;
             specialtyDetails: import("@prisma/client/runtime/library").JsonValue | null;
+            isReleasedToPatient: boolean;
             followUpDate: Date | null;
             followUpNotes: string | null;
             signedAt: Date | null;
-        } | null;
-    } & {
-        type: string;
-        id: string;
-        doctorId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        patientId: string;
-        serviceId: string;
-        scheduledDate: Date;
-        scheduledTimeSlot: string;
-        reason: string | null;
-        appointmentRequestId: string | null;
-        status: import(".prisma/client").$Enums.AppointmentStatus;
-        cancellationReason: string | null;
-        appointmentNumber: string;
-    })[]>;
-    findOne(id: string): Promise<{
-        doctor: {
-            id: string;
-            isActive: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            name: string;
-            slug: string;
-            qualification: string;
-            specialty: string;
-            experienceYears: number | null;
-            biography: string;
-            areasOfExpertise: string[];
-            profileImage: string | null;
-        };
+        }) | null;
         vitalRecords: ({
             recordedBy: {
                 fullName: string;
@@ -216,103 +317,6 @@ export declare class AppointmentsManagementService {
             bmi: import("@prisma/client/runtime/library").Decimal | null;
             nursingNotes: string | null;
         })[];
-        patient: {
-            email: string | null;
-            id: string;
-            fullName: string;
-            phone: string;
-            createdAt: Date;
-            updatedAt: Date;
-            patientId: string;
-            dob: Date;
-            gender: string;
-            bloodGroup: string | null;
-            address: string | null;
-            emergencyContactName: string | null;
-            emergencyContactPhone: string | null;
-            allergies: string[];
-            medicalConditions: string[];
-            currentMedications: string[];
-            medicalHistory: string | null;
-            menstrualHistory: string | null;
-            pregnancyHistory: string | null;
-            previousSurgeries: string | null;
-        };
-        service: {
-            description: string;
-            id: string;
-            isActive: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            name: string;
-            slug: string;
-            benefits: string | null;
-            whatToExpect: string | null;
-            category: string | null;
-            standardFee: import("@prisma/client/runtime/library").Decimal;
-        };
-        consultation: ({
-            diagnosticOrders: {
-                id: string;
-                updatedAt: Date;
-                patientId: string;
-                status: import(".prisma/client").$Enums.DiagnosticStatus;
-                orderNumber: string;
-                orderingDoctorId: string;
-                consultationId: string | null;
-                assignedLabStaffId: string | null;
-                testName: string;
-                testCategory: string;
-                sampleCollectedAt: Date | null;
-                resultsNotes: string | null;
-                reportUrl: string | null;
-                standardPrice: import("@prisma/client/runtime/library").Decimal;
-                isReviewed: boolean;
-                reviewedAt: Date | null;
-                orderedAt: Date;
-            }[];
-            prescriptions: ({
-                items: {
-                    id: string;
-                    createdAt: Date;
-                    prescriptionId: string;
-                    medicationName: string;
-                    dosage: string;
-                    frequency: string;
-                    duration: string;
-                    instructions: string | null;
-                }[];
-            } & {
-                id: string;
-                doctorId: string;
-                updatedAt: Date;
-                patientId: string;
-                status: import(".prisma/client").$Enums.PrescriptionStatus;
-                consultationId: string | null;
-                prescriptionNumber: string;
-                clinicalNotes: string | null;
-                issuedAt: Date;
-            })[];
-        } & {
-            id: string;
-            doctorId: string;
-            createdAt: Date;
-            updatedAt: Date;
-            patientId: string;
-            status: import(".prisma/client").$Enums.ConsultationStatus;
-            appointmentId: string;
-            consultationNumber: string;
-            chiefComplaint: string;
-            symptoms: string | null;
-            clinicalFindings: string | null;
-            diagnosis: string;
-            treatmentPlan: string;
-            specialtyType: string | null;
-            specialtyDetails: import("@prisma/client/runtime/library").JsonValue | null;
-            followUpDate: Date | null;
-            followUpNotes: string | null;
-            signedAt: Date | null;
-        }) | null;
         invoices: ({
             items: {
                 description: string;
@@ -338,42 +342,42 @@ export declare class AppointmentsManagementService {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
             status: import(".prisma/client").$Enums.InvoiceStatus;
+            patientId: string;
+            total: import("@prisma/client/runtime/library").Decimal;
             appointmentId: string | null;
             invoiceNumber: string;
             subtotal: import("@prisma/client/runtime/library").Decimal;
             discount: import("@prisma/client/runtime/library").Decimal;
             tax: import("@prisma/client/runtime/library").Decimal;
-            total: import("@prisma/client/runtime/library").Decimal;
             paidAmount: import("@prisma/client/runtime/library").Decimal;
             balance: import("@prisma/client/runtime/library").Decimal;
             dueDate: Date | null;
         })[];
     } & {
         type: string;
+        serviceId: string;
+        reason: string | null;
         id: string;
-        doctorId: string;
         createdAt: Date;
         updatedAt: Date;
-        patientId: string;
-        serviceId: string;
-        scheduledDate: Date;
-        scheduledTimeSlot: string;
-        reason: string | null;
-        appointmentRequestId: string | null;
         status: import(".prisma/client").$Enums.AppointmentStatus;
-        cancellationReason: string | null;
+        doctorId: string;
+        patientId: string;
+        scheduledDate: Date;
         appointmentNumber: string;
+        scheduledTimeSlot: string;
+        cancellationReason: string | null;
+        appointmentRequestId: string | null;
     }>;
     updateStatus(id: string, dto: UpdateAppointmentStatusDto): Promise<{
         doctor: {
             id: string;
+            name: string;
+            slug: string;
             isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            name: string;
-            slug: string;
             qualification: string;
             specialty: string;
             experienceYears: number | null;
@@ -381,15 +385,28 @@ export declare class AppointmentsManagementService {
             areasOfExpertise: string[];
             profileImage: string | null;
         };
-        patient: {
-            email: string | null;
+        service: {
+            description: string;
             id: string;
-            fullName: string;
-            phone: string;
+            name: string;
+            slug: string;
+            benefits: string | null;
+            whatToExpect: string | null;
+            category: string | null;
+            standardFee: import("@prisma/client/runtime/library").Decimal;
+            isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+        };
+        patient: {
+            email: string | null;
+            phone: string;
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -403,56 +420,43 @@ export declare class AppointmentsManagementService {
             pregnancyHistory: string | null;
             previousSurgeries: string | null;
         };
-        service: {
-            description: string;
-            id: string;
-            isActive: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            name: string;
-            slug: string;
-            benefits: string | null;
-            whatToExpect: string | null;
-            category: string | null;
-            standardFee: import("@prisma/client/runtime/library").Decimal;
-        };
     } & {
         type: string;
+        serviceId: string;
+        reason: string | null;
         id: string;
-        doctorId: string;
         createdAt: Date;
         updatedAt: Date;
-        patientId: string;
-        serviceId: string;
-        scheduledDate: Date;
-        scheduledTimeSlot: string;
-        reason: string | null;
-        appointmentRequestId: string | null;
         status: import(".prisma/client").$Enums.AppointmentStatus;
-        cancellationReason: string | null;
+        doctorId: string;
+        patientId: string;
+        scheduledDate: Date;
         appointmentNumber: string;
+        scheduledTimeSlot: string;
+        cancellationReason: string | null;
+        appointmentRequestId: string | null;
     }>;
     getPendingRequests(): Promise<({
         service: {
             description: string;
             id: string;
-            isActive: boolean;
-            createdAt: Date;
-            updatedAt: Date;
             name: string;
             slug: string;
             benefits: string | null;
             whatToExpect: string | null;
             category: string | null;
             standardFee: import("@prisma/client/runtime/library").Decimal;
-        };
-        preferredDoctor: {
-            id: string;
             isActive: boolean;
             createdAt: Date;
             updatedAt: Date;
+        };
+        preferredDoctor: {
+            id: string;
             name: string;
             slug: string;
+            isActive: boolean;
+            createdAt: Date;
+            updatedAt: Date;
             qualification: string;
             specialty: string;
             experienceYears: number | null;
@@ -461,19 +465,19 @@ export declare class AppointmentsManagementService {
             profileImage: string | null;
         } | null;
     } & {
-        email: string;
-        id: string;
-        phone: string;
-        createdAt: Date;
-        updatedAt: Date;
-        serviceId: string;
-        reason: string | null;
-        status: import(".prisma/client").$Enums.AppointmentStatus;
-        referenceId: string;
         patientName: string;
+        email: string;
+        phone: string;
+        serviceId: string;
         preferredDoctorId: string | null;
         preferredDate: Date;
         preferredTime: string | null;
+        reason: string | null;
         consent: boolean;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        referenceId: string;
+        status: import(".prisma/client").$Enums.AppointmentStatus;
     })[]>;
 }

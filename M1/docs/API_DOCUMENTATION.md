@@ -79,3 +79,30 @@ Authorization: Bearer <jwt_access_token>
 - `POST /api/appointments`: Public website appointment enquiry.
 - `POST /api/contact`: Public website contact submission.
 - `GET /api/doctors`, `GET /api/services`, `GET /api/articles`: Public website catalogs.
+
+---
+
+## 5. Milestone 3: Patient Portal & Payment APIs
+
+All patient endpoints require Bearer Token issued by `POST /api/patient-auth/login` or `POST /api/patient-auth/register`. All record queries are strictly bounded to the authenticated patient's account (IDOR protected).
+
+### 5.1 Patient Authentication (`/api/patient-auth`)
+- `POST /api/patient-auth/register`: Register patient online account with automatic demographic file linking or provisioning.
+- `POST /api/patient-auth/login`: Authenticate patient account and receive JWT session token.
+- `GET /api/patient-auth/me`: Retrieve current authenticated patient account and linked clinical file info.
+
+### 5.2 Patient Portal Features (`/api/patient-portal`)
+- `GET /api/patient-portal/dashboard`: Aggregated patient overview: next appointment, active prescriptions, latest lab results, and billing balance.
+- `GET /api/patient-portal/appointments`: Patient's scheduled and past appointments.
+- `POST /api/patient-portal/appointments/request`: Submit an appointment booking request for clinic confirmation.
+- `PATCH /api/patient-portal/appointments/:id/cancel`: Cancel an upcoming appointment with reason.
+- `GET /api/patient-portal/consultations`: View doctor consultation notes released to the patient (`isReleasedToPatient = true`).
+- `GET /api/patient-portal/prescriptions`: View active e-prescriptions with itemized dosages and instructions.
+- `GET /api/patient-portal/reports`: View completed diagnostic and laboratory results.
+- `GET /api/patient-portal/invoices`: View patient billing statements, itemized charges, and payment receipts.
+- `POST /api/patient-portal/payments/create-order`: Generate Razorpay / online payment gateway order ID for unpaid balance.
+- `POST /api/patient-portal/payments/verify`: Cryptographically verify HMAC-SHA256 signature and settle invoice balance atomically.
+- `GET /api/patient-portal/notifications`: Fetch patient notifications and clinic alerts.
+- `PATCH /api/patient-portal/notifications/:id/read`: Mark a notification as read.
+- `POST /api/patient-portal/support`: Submit an inquiry or care question ticket.
+- `GET /api/patient-portal/support`: List patient's support ticket history.

@@ -21,6 +21,10 @@ import { DiagnosticsModule } from './modules/diagnostics/diagnostics.module.js';
 import { BillingModule } from './modules/billing/billing.module.js';
 import { ReportsModule } from './modules/reports/reports.module.js';
 
+// Milestone 3 Patient Portal modules
+import { PatientAuthModule } from './modules/patient-auth/patient-auth.module.js';
+import { PatientPortalModule } from './modules/patient-portal/patient-portal.module.js';
+
 @Module({
   imports: [
     PrismaModule,
@@ -40,6 +44,9 @@ import { ReportsModule } from './modules/reports/reports.module.js';
     DiagnosticsModule,
     BillingModule,
     ReportsModule,
+    // Milestone 3 Patient Portal
+    PatientAuthModule,
+    PatientPortalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

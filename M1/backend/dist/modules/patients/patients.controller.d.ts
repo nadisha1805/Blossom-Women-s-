@@ -4,12 +4,16 @@ export declare class PatientsController {
     private readonly patientsService;
     constructor(patientsService: PatientsService);
     create(dto: CreatePatientDto): Promise<{
+        email: string | null;
+        phone: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
         fullName: string;
         dob: Date;
+        patientId: string;
         gender: string;
         bloodGroup: string | null;
-        phone: string;
-        email: string | null;
         address: string | null;
         emergencyContactName: string | null;
         emergencyContactPhone: string | null;
@@ -20,19 +24,19 @@ export declare class PatientsController {
         menstrualHistory: string | null;
         pregnancyHistory: string | null;
         previousSurgeries: string | null;
-        id: string;
-        patientId: string;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     findAll(search?: string, page?: number, limit?: number): Promise<{
         items: {
+            email: string | null;
+            phone: string;
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
             fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
-            phone: string;
-            email: string | null;
             address: string | null;
             emergencyContactName: string | null;
             emergencyContactPhone: string | null;
@@ -43,10 +47,6 @@ export declare class PatientsController {
             menstrualHistory: string | null;
             pregnancyHistory: string | null;
             previousSurgeries: string | null;
-            id: string;
-            patientId: string;
-            createdAt: Date;
-            updatedAt: Date;
         }[];
         total: number;
         page: number;
@@ -57,11 +57,11 @@ export declare class PatientsController {
         appointments: ({
             doctor: {
                 id: string;
+                name: string;
+                slug: string;
+                isActive: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                name: string;
-                isActive: boolean;
-                slug: string;
                 qualification: string;
                 specialty: string;
                 experienceYears: number | null;
@@ -72,31 +72,158 @@ export declare class PatientsController {
             service: {
                 description: string;
                 id: string;
-                createdAt: Date;
-                updatedAt: Date;
                 name: string;
-                isActive: boolean;
                 slug: string;
                 benefits: string | null;
                 whatToExpect: string | null;
                 category: string | null;
                 standardFee: import("@prisma/client/runtime/library").Decimal;
+                isActive: boolean;
+                createdAt: Date;
+                updatedAt: Date;
             };
         } & {
             type: string;
+            serviceId: string;
+            reason: string | null;
             id: string;
-            patientId: string;
             createdAt: Date;
             updatedAt: Date;
-            scheduledDate: Date;
-            doctorId: string;
-            appointmentNumber: string;
-            serviceId: string;
-            scheduledTimeSlot: string;
             status: import(".prisma/client").$Enums.AppointmentStatus;
-            reason: string | null;
+            doctorId: string;
+            patientId: string;
+            scheduledDate: Date;
+            appointmentNumber: string;
+            scheduledTimeSlot: string;
             cancellationReason: string | null;
             appointmentRequestId: string | null;
+        })[];
+        consultations: ({
+            doctor: {
+                id: string;
+                name: string;
+                slug: string;
+                isActive: boolean;
+                createdAt: Date;
+                updatedAt: Date;
+                qualification: string;
+                specialty: string;
+                experienceYears: number | null;
+                biography: string;
+                areasOfExpertise: string[];
+                profileImage: string | null;
+            };
+            diagnosticOrders: {
+                id: string;
+                updatedAt: Date;
+                status: import(".prisma/client").$Enums.DiagnosticStatus;
+                patientId: string;
+                orderedAt: Date;
+                isReleasedToPatient: boolean;
+                orderNumber: string;
+                orderingDoctorId: string;
+                consultationId: string | null;
+                assignedLabStaffId: string | null;
+                testName: string;
+                testCategory: string;
+                sampleCollectedAt: Date | null;
+                resultsNotes: string | null;
+                reportUrl: string | null;
+                standardPrice: import("@prisma/client/runtime/library").Decimal;
+                isReviewed: boolean;
+                reviewedAt: Date | null;
+            }[];
+            prescriptions: ({
+                items: {
+                    id: string;
+                    createdAt: Date;
+                    prescriptionId: string;
+                    medicationName: string;
+                    dosage: string;
+                    frequency: string;
+                    duration: string;
+                    instructions: string | null;
+                }[];
+            } & {
+                id: string;
+                updatedAt: Date;
+                status: import(".prisma/client").$Enums.PrescriptionStatus;
+                doctorId: string;
+                patientId: string;
+                issuedAt: Date;
+                isReleasedToPatient: boolean;
+                consultationId: string | null;
+                prescriptionNumber: string;
+                clinicalNotes: string | null;
+            })[];
+        } & {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            status: import(".prisma/client").$Enums.ConsultationStatus;
+            doctorId: string;
+            patientId: string;
+            consultationNumber: string;
+            appointmentId: string;
+            chiefComplaint: string;
+            symptoms: string | null;
+            clinicalFindings: string | null;
+            diagnosis: string;
+            treatmentPlan: string;
+            specialtyType: string | null;
+            specialtyDetails: import("@prisma/client/runtime/library").JsonValue | null;
+            isReleasedToPatient: boolean;
+            followUpDate: Date | null;
+            followUpNotes: string | null;
+            signedAt: Date | null;
+        })[];
+        diagnosticOrders: ({
+            orderingDoctor: {
+                id: string;
+                name: string;
+                slug: string;
+                isActive: boolean;
+                createdAt: Date;
+                updatedAt: Date;
+                qualification: string;
+                specialty: string;
+                experienceYears: number | null;
+                biography: string;
+                areasOfExpertise: string[];
+                profileImage: string | null;
+            };
+            assignedLabStaff: {
+                email: string;
+                phone: string | null;
+                id: string;
+                isActive: boolean;
+                createdAt: Date;
+                updatedAt: Date;
+                doctorId: string | null;
+                passwordHash: string;
+                fullName: string;
+                role: import(".prisma/client").$Enums.UserRole;
+                lastLoginAt: Date | null;
+            } | null;
+        } & {
+            id: string;
+            updatedAt: Date;
+            status: import(".prisma/client").$Enums.DiagnosticStatus;
+            patientId: string;
+            orderedAt: Date;
+            isReleasedToPatient: boolean;
+            orderNumber: string;
+            orderingDoctorId: string;
+            consultationId: string | null;
+            assignedLabStaffId: string | null;
+            testName: string;
+            testCategory: string;
+            sampleCollectedAt: Date | null;
+            resultsNotes: string | null;
+            reportUrl: string | null;
+            standardPrice: import("@prisma/client/runtime/library").Decimal;
+            isReviewed: boolean;
+            reviewedAt: Date | null;
         })[];
         vitalRecords: ({
             recordedBy: {
@@ -120,83 +247,10 @@ export declare class PatientsController {
             bmi: import("@prisma/client/runtime/library").Decimal | null;
             nursingNotes: string | null;
         })[];
-        consultations: ({
-            prescriptions: ({
-                items: {
-                    id: string;
-                    createdAt: Date;
-                    prescriptionId: string;
-                    medicationName: string;
-                    dosage: string;
-                    frequency: string;
-                    duration: string;
-                    instructions: string | null;
-                }[];
-            } & {
-                id: string;
-                patientId: string;
-                updatedAt: Date;
-                doctorId: string;
-                issuedAt: Date;
-                status: import(".prisma/client").$Enums.PrescriptionStatus;
-                prescriptionNumber: string;
-                consultationId: string | null;
-                clinicalNotes: string | null;
-            })[];
-            diagnosticOrders: {
-                id: string;
-                patientId: string;
-                updatedAt: Date;
-                orderedAt: Date;
-                status: import(".prisma/client").$Enums.DiagnosticStatus;
-                consultationId: string | null;
-                orderNumber: string;
-                orderingDoctorId: string;
-                assignedLabStaffId: string | null;
-                testName: string;
-                testCategory: string;
-                sampleCollectedAt: Date | null;
-                resultsNotes: string | null;
-                reportUrl: string | null;
-                standardPrice: import("@prisma/client/runtime/library").Decimal;
-                isReviewed: boolean;
-                reviewedAt: Date | null;
-            }[];
-            doctor: {
-                id: string;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
-                isActive: boolean;
-                slug: string;
-                qualification: string;
-                specialty: string;
-                experienceYears: number | null;
-                biography: string;
-                areasOfExpertise: string[];
-                profileImage: string | null;
-            };
-        } & {
-            id: string;
-            patientId: string;
-            createdAt: Date;
-            updatedAt: Date;
-            doctorId: string;
-            status: import(".prisma/client").$Enums.ConsultationStatus;
-            appointmentId: string;
-            consultationNumber: string;
-            chiefComplaint: string;
-            symptoms: string | null;
-            clinicalFindings: string | null;
-            diagnosis: string;
-            treatmentPlan: string;
-            specialtyType: string | null;
-            specialtyDetails: import("@prisma/client/runtime/library").JsonValue | null;
-            followUpDate: Date | null;
-            followUpNotes: string | null;
-            signedAt: Date | null;
-        })[];
         prescriptions: ({
+            doctor: {
+                fullName: string;
+            };
             items: {
                 id: string;
                 createdAt: Date;
@@ -207,66 +261,17 @@ export declare class PatientsController {
                 duration: string;
                 instructions: string | null;
             }[];
-            doctor: {
-                fullName: string;
-            };
         } & {
             id: string;
-            patientId: string;
             updatedAt: Date;
-            doctorId: string;
-            issuedAt: Date;
             status: import(".prisma/client").$Enums.PrescriptionStatus;
-            prescriptionNumber: string;
-            consultationId: string | null;
-            clinicalNotes: string | null;
-        })[];
-        diagnosticOrders: ({
-            orderingDoctor: {
-                id: string;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
-                isActive: boolean;
-                slug: string;
-                qualification: string;
-                specialty: string;
-                experienceYears: number | null;
-                biography: string;
-                areasOfExpertise: string[];
-                profileImage: string | null;
-            };
-            assignedLabStaff: {
-                fullName: string;
-                phone: string | null;
-                email: string;
-                id: string;
-                createdAt: Date;
-                updatedAt: Date;
-                passwordHash: string;
-                role: import(".prisma/client").$Enums.UserRole;
-                isActive: boolean;
-                lastLoginAt: Date | null;
-                doctorId: string | null;
-            } | null;
-        } & {
-            id: string;
+            doctorId: string;
             patientId: string;
-            updatedAt: Date;
-            orderedAt: Date;
-            status: import(".prisma/client").$Enums.DiagnosticStatus;
+            issuedAt: Date;
+            isReleasedToPatient: boolean;
             consultationId: string | null;
-            orderNumber: string;
-            orderingDoctorId: string;
-            assignedLabStaffId: string | null;
-            testName: string;
-            testCategory: string;
-            sampleCollectedAt: Date | null;
-            resultsNotes: string | null;
-            reportUrl: string | null;
-            standardPrice: import("@prisma/client/runtime/library").Decimal;
-            isReviewed: boolean;
-            reviewedAt: Date | null;
+            prescriptionNumber: string;
+            clinicalNotes: string | null;
         })[];
         invoices: ({
             items: {
@@ -291,27 +296,31 @@ export declare class PatientsController {
             }[];
         } & {
             id: string;
-            patientId: string;
             createdAt: Date;
             updatedAt: Date;
             status: import(".prisma/client").$Enums.InvoiceStatus;
+            patientId: string;
+            total: import("@prisma/client/runtime/library").Decimal;
             appointmentId: string | null;
             invoiceNumber: string;
             subtotal: import("@prisma/client/runtime/library").Decimal;
             discount: import("@prisma/client/runtime/library").Decimal;
             tax: import("@prisma/client/runtime/library").Decimal;
-            total: import("@prisma/client/runtime/library").Decimal;
             paidAmount: import("@prisma/client/runtime/library").Decimal;
             balance: import("@prisma/client/runtime/library").Decimal;
             dueDate: Date | null;
         })[];
     } & {
+        email: string | null;
+        phone: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
         fullName: string;
         dob: Date;
+        patientId: string;
         gender: string;
         bloodGroup: string | null;
-        phone: string;
-        email: string | null;
         address: string | null;
         emergencyContactName: string | null;
         emergencyContactPhone: string | null;
@@ -322,18 +331,18 @@ export declare class PatientsController {
         menstrualHistory: string | null;
         pregnancyHistory: string | null;
         previousSurgeries: string | null;
-        id: string;
-        patientId: string;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     update(id: string, updateDto: Partial<CreatePatientDto>): Promise<{
+        email: string | null;
+        phone: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
         fullName: string;
         dob: Date;
+        patientId: string;
         gender: string;
         bloodGroup: string | null;
-        phone: string;
-        email: string | null;
         address: string | null;
         emergencyContactName: string | null;
         emergencyContactPhone: string | null;
@@ -344,9 +353,5 @@ export declare class PatientsController {
         menstrualHistory: string | null;
         pregnancyHistory: string | null;
         previousSurgeries: string | null;
-        id: string;
-        patientId: string;
-        createdAt: Date;
-        updatedAt: Date;
     }>;
 }

@@ -5,24 +5,15 @@ export declare class BillingController {
     private readonly billingService;
     constructor(billingService: BillingService);
     createInvoice(dto: CreateInvoiceDto): Promise<{
-        items: {
-            description: string;
-            id: string;
-            createdAt: Date;
-            invoiceId: string;
-            quantity: number;
-            unitPrice: import("@prisma/client/runtime/library").Decimal;
-            totalPrice: import("@prisma/client/runtime/library").Decimal;
-        }[];
         patient: {
             email: string | null;
-            id: string;
-            fullName: string;
             phone: string;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -36,6 +27,15 @@ export declare class BillingController {
             pregnancyHistory: string | null;
             previousSurgeries: string | null;
         };
+        items: {
+            description: string;
+            id: string;
+            createdAt: Date;
+            invoiceId: string;
+            quantity: number;
+            unitPrice: import("@prisma/client/runtime/library").Decimal;
+            totalPrice: import("@prisma/client/runtime/library").Decimal;
+        }[];
         payments: {
             id: string;
             invoiceId: string;
@@ -51,14 +51,14 @@ export declare class BillingController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        patientId: string;
         status: import(".prisma/client").$Enums.InvoiceStatus;
+        patientId: string;
+        total: import("@prisma/client/runtime/library").Decimal;
         appointmentId: string | null;
         invoiceNumber: string;
         subtotal: import("@prisma/client/runtime/library").Decimal;
         discount: import("@prisma/client/runtime/library").Decimal;
         tax: import("@prisma/client/runtime/library").Decimal;
-        total: import("@prisma/client/runtime/library").Decimal;
         paidAmount: import("@prisma/client/runtime/library").Decimal;
         balance: import("@prisma/client/runtime/library").Decimal;
         dueDate: Date | null;
@@ -76,24 +76,15 @@ export declare class BillingController {
             paidAt: Date;
         };
         invoice: {
-            items: {
-                description: string;
-                id: string;
-                createdAt: Date;
-                invoiceId: string;
-                quantity: number;
-                unitPrice: import("@prisma/client/runtime/library").Decimal;
-                totalPrice: import("@prisma/client/runtime/library").Decimal;
-            }[];
             patient: {
                 email: string | null;
-                id: string;
-                fullName: string;
                 phone: string;
+                id: string;
                 createdAt: Date;
                 updatedAt: Date;
-                patientId: string;
+                fullName: string;
                 dob: Date;
+                patientId: string;
                 gender: string;
                 bloodGroup: string | null;
                 address: string | null;
@@ -107,6 +98,15 @@ export declare class BillingController {
                 pregnancyHistory: string | null;
                 previousSurgeries: string | null;
             };
+            items: {
+                description: string;
+                id: string;
+                createdAt: Date;
+                invoiceId: string;
+                quantity: number;
+                unitPrice: import("@prisma/client/runtime/library").Decimal;
+                totalPrice: import("@prisma/client/runtime/library").Decimal;
+            }[];
             payments: {
                 id: string;
                 invoiceId: string;
@@ -122,38 +122,29 @@ export declare class BillingController {
             id: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
             status: import(".prisma/client").$Enums.InvoiceStatus;
+            patientId: string;
+            total: import("@prisma/client/runtime/library").Decimal;
             appointmentId: string | null;
             invoiceNumber: string;
             subtotal: import("@prisma/client/runtime/library").Decimal;
             discount: import("@prisma/client/runtime/library").Decimal;
             tax: import("@prisma/client/runtime/library").Decimal;
-            total: import("@prisma/client/runtime/library").Decimal;
             paidAmount: import("@prisma/client/runtime/library").Decimal;
             balance: import("@prisma/client/runtime/library").Decimal;
             dueDate: Date | null;
         };
     }>;
     findAll(patientId?: string, status?: InvoiceStatus): Promise<({
-        items: {
-            description: string;
-            id: string;
-            createdAt: Date;
-            invoiceId: string;
-            quantity: number;
-            unitPrice: import("@prisma/client/runtime/library").Decimal;
-            totalPrice: import("@prisma/client/runtime/library").Decimal;
-        }[];
         patient: {
             email: string | null;
-            id: string;
-            fullName: string;
             phone: string;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -167,6 +158,15 @@ export declare class BillingController {
             pregnancyHistory: string | null;
             previousSurgeries: string | null;
         };
+        items: {
+            description: string;
+            id: string;
+            createdAt: Date;
+            invoiceId: string;
+            quantity: number;
+            unitPrice: import("@prisma/client/runtime/library").Decimal;
+            totalPrice: import("@prisma/client/runtime/library").Decimal;
+        }[];
         payments: {
             id: string;
             invoiceId: string;
@@ -182,37 +182,28 @@ export declare class BillingController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        patientId: string;
         status: import(".prisma/client").$Enums.InvoiceStatus;
+        patientId: string;
+        total: import("@prisma/client/runtime/library").Decimal;
         appointmentId: string | null;
         invoiceNumber: string;
         subtotal: import("@prisma/client/runtime/library").Decimal;
         discount: import("@prisma/client/runtime/library").Decimal;
         tax: import("@prisma/client/runtime/library").Decimal;
-        total: import("@prisma/client/runtime/library").Decimal;
         paidAmount: import("@prisma/client/runtime/library").Decimal;
         balance: import("@prisma/client/runtime/library").Decimal;
         dueDate: Date | null;
     })[]>;
     findOne(id: string): Promise<{
-        items: {
-            description: string;
-            id: string;
-            createdAt: Date;
-            invoiceId: string;
-            quantity: number;
-            unitPrice: import("@prisma/client/runtime/library").Decimal;
-            totalPrice: import("@prisma/client/runtime/library").Decimal;
-        }[];
         patient: {
             email: string | null;
-            id: string;
-            fullName: string;
             phone: string;
+            id: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
+            fullName: string;
             dob: Date;
+            patientId: string;
             gender: string;
             bloodGroup: string | null;
             address: string | null;
@@ -229,11 +220,11 @@ export declare class BillingController {
         appointment: ({
             doctor: {
                 id: string;
+                name: string;
+                slug: string;
                 isActive: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                name: string;
-                slug: string;
                 qualification: string;
                 specialty: string;
                 experienceYears: number | null;
@@ -244,32 +235,41 @@ export declare class BillingController {
             service: {
                 description: string;
                 id: string;
-                isActive: boolean;
-                createdAt: Date;
-                updatedAt: Date;
                 name: string;
                 slug: string;
                 benefits: string | null;
                 whatToExpect: string | null;
                 category: string | null;
                 standardFee: import("@prisma/client/runtime/library").Decimal;
+                isActive: boolean;
+                createdAt: Date;
+                updatedAt: Date;
             };
         } & {
             type: string;
+            serviceId: string;
+            reason: string | null;
             id: string;
-            doctorId: string;
             createdAt: Date;
             updatedAt: Date;
-            patientId: string;
-            serviceId: string;
-            scheduledDate: Date;
-            scheduledTimeSlot: string;
-            reason: string | null;
-            appointmentRequestId: string | null;
             status: import(".prisma/client").$Enums.AppointmentStatus;
-            cancellationReason: string | null;
+            doctorId: string;
+            patientId: string;
+            scheduledDate: Date;
             appointmentNumber: string;
+            scheduledTimeSlot: string;
+            cancellationReason: string | null;
+            appointmentRequestId: string | null;
         }) | null;
+        items: {
+            description: string;
+            id: string;
+            createdAt: Date;
+            invoiceId: string;
+            quantity: number;
+            unitPrice: import("@prisma/client/runtime/library").Decimal;
+            totalPrice: import("@prisma/client/runtime/library").Decimal;
+        }[];
         payments: {
             id: string;
             invoiceId: string;
@@ -285,14 +285,14 @@ export declare class BillingController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        patientId: string;
         status: import(".prisma/client").$Enums.InvoiceStatus;
+        patientId: string;
+        total: import("@prisma/client/runtime/library").Decimal;
         appointmentId: string | null;
         invoiceNumber: string;
         subtotal: import("@prisma/client/runtime/library").Decimal;
         discount: import("@prisma/client/runtime/library").Decimal;
         tax: import("@prisma/client/runtime/library").Decimal;
-        total: import("@prisma/client/runtime/library").Decimal;
         paidAmount: import("@prisma/client/runtime/library").Decimal;
         balance: import("@prisma/client/runtime/library").Decimal;
         dueDate: Date | null;
